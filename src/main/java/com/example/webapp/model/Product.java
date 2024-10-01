@@ -4,18 +4,18 @@ public class Product {
     private int id;
     private String name;
     private double price;
-    private int quantity;
+    private int stock;
 
     // Standardkonstruktor
     public Product() {
     }
 
     // Konstruktor med parametrar
-    public Product(int id, String name, double price, int quantity) {
+    public Product(int id, String name, double price, int stock) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.quantity = quantity;
+        this.stock = stock;
     }
 
     // Getter och setter för id
@@ -46,12 +46,12 @@ public class Product {
     }
 
     // Getter och setter för quantity
-    public int getQuantity() {
-        return quantity;
+    public int getStock() {
+        return stock;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     // toString() metod för enkel utskrift av produktinformationen
@@ -61,7 +61,7 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", quantity=" + quantity +
+                ", quantity=" + stock +
                 '}';
     }
 }

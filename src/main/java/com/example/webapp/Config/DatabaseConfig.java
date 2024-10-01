@@ -7,19 +7,28 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseConfig {
-    public Properties loadProperties() {
-        Properties props = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("db.properties")) {
-            if (input == null) {
-                System.out.println("Sorry, unable to find db.properties");
-                return null;
+
+    private static Connection connection;
+
+    // Metod för att skapa och returnera en databasanslutning utan db.properties
+    public Connection getConnection() {
+        if (connection == null) {
+            try {
+                // Hårdkodad information för databasanslutning
+                String url = "jdbc:mysql://127.0.0.1:3306/webshop";  // Ange din databas-URL
+                String username = "root";  // Ange ditt databas-användarnamn
+                String password = "Coola145!";  // Ange ditt databas-lösenord
+
+                // Ladda JDBC-drivrutinen
+                Class.forName("com.mysql.cj.jdbc.Driver");
+
+                // Skapa anslutningen
+                connection = DriverManager.getConnection(url, username, password);
+                System.out.println("Connection established!");  // Bekräfta anslutning i konsolen
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
             }
-            // Ladda egenskaper från filen
-            props.load(input);
-            System.out.println("watsapp");
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
-        return props;
+        return connection;
     }
 }

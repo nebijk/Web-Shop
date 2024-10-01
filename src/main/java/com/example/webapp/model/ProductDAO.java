@@ -2,31 +2,45 @@ package com.example.webapp.model;
 
 import com.example.webapp.Config.DatabaseConfig;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+
 public class ProductDAO {
+
     private Connection jdbcConnection;
 
-    public void connect() throws SQLException {
+    public ProductDAO() {
         DatabaseConfig config = new DatabaseConfig();
-        Properties props = config.loadProperties();
-        String jdbcURL = props.getProperty("db.url");
-        String jdbcUsername = props.getProperty("db.username");
-        String jdbcPassword = props.getProperty("db.password");
-
-        jdbcConnection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+        this.jdbcConnection = config.getConnection();  // Använd hårdkodad anslutning från DatabaseConfig
+        if (jdbcConnection == null) {
+            System.out.println("Failed to establish a database connection in ProductDAO.");
+        } else {
+            System.out.println("Database connection established in ProductDAO.");
+        }
     }
 
-    // Exempel på CRUD-operationer:
-    public void insertProduct(Product product) {
-        // Logik för att infoga en produkt i databasen
-    }
+    // Metod för att hämta alla produkter från databasen
+    public List<Product> getAllProducts() throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT * FROM products";
+        try (Statement stmt = jdbcConnection.createStatement()) {  // Här används jdbcConnection
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Product product = new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getInt("stock")
+                );
+                products.add(product);
+            }
 
-    public void updateProduct(Product product) {
-        // Logik för att uppdatera en produkt
-    }
-
-    public void deleteProduct(int productId) {
-        // Logik för att ta bort en produkt
+        }
+        System.out.println("Number of products fetched: " + products.size());
+        return products;
     }
 }
+
+
