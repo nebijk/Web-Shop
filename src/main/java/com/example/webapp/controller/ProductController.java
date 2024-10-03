@@ -23,10 +23,8 @@ public class ProductController extends HttpServlet {
         try {
             // Hämta alla produkter från databasen
             List<Product> productList = productDAO.getAllProducts();
-
             // Skicka listan med produkter till JSP-sidan
             request.setAttribute("products", productList);
-
             // Skicka vidare till JSP-sidan (view)
             request.getRequestDispatcher("productList.jsp").forward(request, response);
 
