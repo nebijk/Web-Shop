@@ -14,6 +14,7 @@ public class UserDAO {
         this.jdbcConnection = config.getConnection();
     }
 
+
     // Metod för att kontrollera användaruppgifterna
     public boolean validateUser(String username, String password) {
         String query = "SELECT * FROM users WHERE username = ? AND password = ?";
