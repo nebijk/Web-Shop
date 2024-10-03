@@ -1,62 +1,92 @@
 package com.example.webapp.model;
 
-import com.example.webapp.Config.DatabaseConfig;
+import com.example.webapp.model.Product;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-
 
 public class ProductDAO {
 
-    private Connection jdbcConnection;
+    private Connection connection;
 
-    public ProductDAO() {
-        DatabaseConfig config = new DatabaseConfig();
-        this.jdbcConnection = config.getConnection();  // Använd hårdkodad anslutning från DatabaseConfig
-        if (jdbcConnection == null) {
-            System.out.println("Failed to establish a database connection in ProductDAO.");
-        } else {
-            System.out.println("Database connection established in ProductDAO.");
-        }
+    public ProductDAO(Connection connection) {
+        this.connection = connection;
     }
 
+    public ProductDAO() {
+    }
+
+    // Hämta alla produkter
+    public List<Product> getAllProducts() throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT * FROM products";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Product product = new Product(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getDouble("price"),
+                        resultSet.getInt("stock")
+                );
+                products.add(product);
+            }
+        }
+        return products;
+    }
+
+    // Hämta produkt efter ID
     public Product getProductById(int id) throws SQLException {
         Product product = null;
         String query = "SELECT * FROM products WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
 
-        try (PreparedStatement stmt = jdbcConnection.prepareStatement(query)) {
-            stmt.setInt(1, id);  // Sätt in produkt-ID:t i frågan
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
+            if (resultSet.next()) {
                 product = new Product(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getDouble("price"),
-                        rs.getInt("stock")
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getDouble("price"),
+                        resultSet.getInt("stock")
                 );
             }
         }
         return product;
     }
-    // Metod för att hämta alla produkter från databasen
-    public List<Product> getAllProducts() throws SQLException {
-        List<Product> products = new ArrayList<>();
-        String query = "SELECT * FROM products";
-        try (Statement stmt = jdbcConnection.createStatement()) {  // Här används jdbcConnection
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                Product product = new Product(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getDouble("price"),
-                        rs.getInt("stock")
-                );
-                products.add(product);
-            }
+
+    // Lägg till en ny produkt
+    public void addProduct(Product product) throws SQLException {
+        String query = "INSERT INTO products (name, price, stock) VALUES (?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, product.getName());
+            statement.setDouble(2, product.getPrice());
+            statement.setInt(3, product.getStock());
+            statement.executeUpdate();
         }
-        System.out.println("Number of products fetched: " + products.size());
-        return products;
+    }
+
+    // Uppdatera en produkt
+    public void updateProduct(Product product) throws SQLException {
+        String query = "UPDATE products SET name = ?, price = ?, stock = ? WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, product.getName());
+            statement.setDouble(2, product.getPrice());
+            statement.setInt(3, product.getStock());
+            statement.setInt(4, product.getId());
+            statement.executeUpdate();
+        }
+    }
+
+    // Ta bort en produkt
+    public void deleteProduct(int id) throws SQLException {
+        String query = "DELETE FROM products WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        }
     }
 }
 
