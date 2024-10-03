@@ -21,6 +21,24 @@ public class ProductDAO {
         }
     }
 
+    public Product getProductById(int id) throws SQLException {
+        Product product = null;
+        String query = "SELECT * FROM products WHERE id = ?";
+
+        try (PreparedStatement stmt = jdbcConnection.prepareStatement(query)) {
+            stmt.setInt(1, id);  // Sätt in produkt-ID:t i frågan
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                product = new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getInt("stock")
+                );
+            }
+        }
+        return product;
+    }
     // Metod för att hämta alla produkter från databasen
     public List<Product> getAllProducts() throws SQLException {
         List<Product> products = new ArrayList<>();
@@ -36,7 +54,6 @@ public class ProductDAO {
                 );
                 products.add(product);
             }
-
         }
         System.out.println("Number of products fetched: " + products.size());
         return products;
