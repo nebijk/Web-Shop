@@ -20,9 +20,8 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Get productId and quantity from the request
+        // Get productId from the request
         int productId = Integer.parseInt(request.getParameter("productId"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
 
         // Fetch the product from the database
         Product product = null;
@@ -40,11 +39,11 @@ public class CartController extends HttpServlet {
             session.setAttribute("cart", cart);
         }
 
-        // Add the product to the cart if it's in stock
-        if (product != null && quantity <= product.getStock()) {
-            cart.addProduct(product, quantity);
+        // Add the product to the cart (increment quantity)
+        if (product != null) {
+            cart.addProduct(product);
         } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product or quantity");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product");
         }
 
         // Redirect back to the product listing page

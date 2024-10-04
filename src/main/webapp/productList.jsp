@@ -16,10 +16,10 @@
         <th>Add to Cart</th>
     </tr>
     <%
-        List<com.example.webapp.model.Product> products = (List<Product>) request.getAttribute("products");
+        List<Product> products = (List<Product>) request.getAttribute("products");
 
         if (products != null && !products.isEmpty()) {
-            for (com.example.webapp.model.Product product : products) {
+            for (Product product : products) {
     %>
     <tr>
         <td><%= product.getId() %></td>
@@ -30,7 +30,6 @@
             <% if (product.getStock() > 0) { %>
             <form action="cart" method="post">
                 <input type="hidden" name="productId" value="<%= product.getId() %>">
-                <input type="number" name="quantity" min="1" max="<%= product.getStock() %>" value="1">
                 <input type="submit" value="Add to Cart">
             </form>
             <% } else { %>
