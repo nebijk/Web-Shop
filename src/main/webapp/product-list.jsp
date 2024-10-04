@@ -7,6 +7,7 @@
 </head>
 <body>
 <h1>Product List</h1>
+
 <table border="1">
     <tr>
         <th>ID</th>
@@ -48,7 +49,8 @@
         }
     %>
 </table>
+<a href="cart-view.jsp">view cart</a>
 
-<a href="cart-view.jsp">View Cart</a> <!-- Link to view the cart -->
+
 </body>
 </html>
