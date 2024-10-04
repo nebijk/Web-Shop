@@ -6,7 +6,7 @@ import com.example.webapp.model.User;
 public class ShoppingCartTest {
     public static void main(String[] args) {
         // Create a new user
-        User user = new User(1, "john_doe", "password123", "customer");
+        /*User user = new User(1, "john_doe", "password123", "customer");
 
         // Create some products
         Product product1 = new Product(1, "Laptop", 1200.99, 5);
@@ -18,11 +18,11 @@ public class ShoppingCartTest {
 
         // Display cart contents
         System.out.println("User's cart contains:");
-        for (Product product : user.getCart().getProducts()) {
+       // for (Product product : user.getCart().getProducts()) {
             System.out.println(product.getName() + " - Price: $" + product.getPrice());
         }
 
         // Calculate the total price of the cart
-        System.out.println("Total price: $" + user.getCart().getTotalPrice());
+        System.out.println("Total price: $" + user.getCart().getTotalPrice());*/
     }
 }
