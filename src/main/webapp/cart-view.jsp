@@ -46,6 +46,6 @@
     }
 %>
 
-<a href="product-list">Continue Shopping</a>
+<a href="product-list">Continue Shopping</a> <!-- Link to go back to the product list -->
 </body>
 </html>

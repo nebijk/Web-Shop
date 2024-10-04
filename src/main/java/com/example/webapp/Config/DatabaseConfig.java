@@ -15,9 +15,9 @@ public class DatabaseConfig {
         if (connection == null) {
             try {
                 // Hårdkodad information för databasanslutning
-                String url = "jdbc:mysql://localhost/webshop";  // Ange din databas-URL
+                String url = "jdbc:mysql://127.0.0.1:3306/webshop";  // Ange din databas-URL
                 String username = "root";  // Ange ditt databas-användarnamn
-                String password = "Dekemhare145.";  // Ange ditt databas-lösenord
+                String password = "Coola145!";  // Ange ditt databas-lösenord
 
                 // Ladda JDBC-drivrutinen
                 Class.forName("com.mysql.cj.jdbc.Driver");
