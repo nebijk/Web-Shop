@@ -17,6 +17,20 @@ public class Product {
         this.price = price;
         this.stock = stock;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return id == product.id;  // Products are equal if their ids are equal
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);  // Use the product's id for the hash code
+    }
 
     // Getter och setter för id
     public int getId() {

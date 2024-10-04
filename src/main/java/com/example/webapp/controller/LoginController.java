@@ -29,7 +29,7 @@ public class LoginController extends HttpServlet {
         // Validera inloggningsuppgifter via service-lagret
         if (userService.validateLogin(username, password)) {
             // Om inloggningen lyckas, skicka vidare till en välkomstsida
-            response.sendRedirect("welcome.jsp");
+            response.sendRedirect("product.jsp");
         } else {
             // Om inloggningen misslyckas, skicka tillbaka till inloggningssidan med ett felmeddelande
             response.sendRedirect("login.jsp?error=true");
