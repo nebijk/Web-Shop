@@ -4,37 +4,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-    private List<Product> products;  // List to hold Product objects
+    private List<CartItem> items;  // List to hold CartItem objects
 
     public Cart() {
-        this.products = new ArrayList<>();  // Initialize the list
+        this.items = new ArrayList<>();  // Initialize the list
     }
 
     // Method to add a product to the cart
-    public void addProduct(Product product) {
-        products.add(product);
+    public void addProduct(Product product, int quantity) {
+        // Check if the product is already in the cart
+        for (CartItem item : items) {
+            if (item.getProduct().getId() == product.getId()) {
+                // If the product is already in the cart, update the quantity
+                item.setQuantity(item.getQuantity() + quantity);
+                return;  // Exit method
+            }
+        }
+
+        // If the product is not in the cart, add it as a new CartItem
+        items.add(new CartItem(product, quantity));
     }
 
     // Method to remove a product from the cart
     public void removeProduct(Product product) {
-        products.remove(product);
+        items.removeIf(item -> item.getProduct().getId() == product.getId());
     }
 
-    // Method to get the total price of products in the cart
+    // Method to get the total price of all items in the cart
     public double getTotalPrice() {
         double total = 0;
-        for (Product product : products) {
-            total += product.getPrice();  // Add each product's price to the total
+        for (CartItem item : items) {
+            total += item.getTotalPrice();  // Add each item's total price to the overall total
         }
         return total;
     }
 
-    // Method to get the list of products in the cart
-    public List<Product> getProducts() {
-        return products;
+    // Method to get the list of CartItems in the cart
+    public List<CartItem> getItems() {
+        return items;
     }
 
     // Method to clear the cart
     public void clear() {
+        items.clear();
     }
-    }
+
+
+}

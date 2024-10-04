@@ -1,11 +1,5 @@
 <%@ page import="com.example.webapp.model.Product" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: nebil
-  Date: 10/1/2024
-  Time: 6:34 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -19,6 +13,7 @@
         <th>Name</th>
         <th>Price</th>
         <th>Stock Quantity</th>
+        <th>Add to Cart</th>
     </tr>
     <%
         List<com.example.webapp.model.Product> products = (List<Product>) request.getAttribute("products");
@@ -31,17 +26,30 @@
         <td><%= product.getName() %></td>
         <td><%= product.getPrice() %></td>
         <td><%= product.getStock() %></td>
+        <td>
+            <% if (product.getStock() > 0) { %>
+            <form action="cart" method="post">
+                <input type="hidden" name="productId" value="<%= product.getId() %>">
+                <input type="number" name="quantity" min="1" max="<%= product.getStock() %>" value="1">
+                <input type="submit" value="Add to Cart">
+            </form>
+            <% } else { %>
+            Out of Stock
+            <% } %>
+        </td>
     </tr>
     <%
         }
     } else {
     %>
     <tr>
-        <td colspan="4">No products found</td>
+        <td colspan="5">No products found</td>
     </tr>
     <%
         }
     %>
 </table>
+
+<a href="cart-view.jsp">View Cart</a> <!-- Link to view the cart -->
 </body>
 </html>
