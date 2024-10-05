@@ -1,5 +1,5 @@
 <%@ page import="com.example.webapp.bo.Cart" %>
-<%@ page import="com.example.webapp.bo.Product" %>
+<%@ page import="com.example.webapp.ui.ProductInfo" %>
 <%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -96,8 +96,8 @@
             <th>Total</th>
         </tr>
         <%
-            for (Map.Entry<Product, Integer> entry : cart.getProducts().entrySet()) {
-                Product product = entry.getKey();
+            for (Map.Entry<ProductInfo, Integer> entry : cart.getProducts().entrySet()) {
+                ProductInfo product = entry.getKey();
                 int quantity = entry.getValue();
         %>
         <tr>

@@ -1,4 +1,4 @@
-<%@ page import="com.example.webapp.bo.Product" %>
+<%@ page import="com.example.webapp.ui.ProductInfo" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -98,10 +98,10 @@
             <th>Add to Cart</th>
         </tr>
         <%
-            List<Product> products = (List<Product>) request.getAttribute("products");
+            List<ProductInfo> products = (List<ProductInfo>) request.getAttribute("products");
 
             if (products != null && !products.isEmpty()) {
-                for (Product product : products) {
+                for (ProductInfo product : products) {
         %>
         <tr>
             <td><%= product.getId() %></td>

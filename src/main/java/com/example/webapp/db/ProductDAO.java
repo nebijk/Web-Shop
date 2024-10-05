@@ -10,7 +10,7 @@ public class ProductDAO {
     private static Connection jdbcConnection;
 
     static {
-        DatabaseConfig config = new DatabaseConfig();
+        DBManager config = new DBManager();
         jdbcConnection = config.getConnection();  // Anslutning till databasen
         if (jdbcConnection == null) {
             System.out.println("Failed to establish a database connection in ProductDAO.");

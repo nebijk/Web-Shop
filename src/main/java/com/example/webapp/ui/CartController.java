@@ -24,7 +24,7 @@ public class CartController extends HttpServlet {
         int productId = Integer.parseInt(request.getParameter("productId"));
 
         // Fetch all products using ProductHandler
-        List<Product> productList = null;
+        List<ProductInfo> productList = null;
         try {
             productList = ProductHandler.getProducts();
         } catch (SQLException e) {
@@ -32,8 +32,8 @@ public class CartController extends HttpServlet {
         }
 
         // Find the product by productId using a simple loop
-        Product product = null;
-        for (Product p : productList) {
+        ProductInfo product = null;
+        for (ProductInfo p : productList) {
             if (p.getId() == productId) {
                 product = p;
                 break;

@@ -28,7 +28,7 @@ public class ProductController extends HttpServlet {
 
         try {
             // Anropar ProductHandler för att få alla produkter
-            List<Product> productList = ProductHandler.getProducts();
+            List<ProductInfo> productList = ProductHandler.getProducts();
             request.setAttribute("products", productList);
             request.getRequestDispatcher("product-list.jsp").forward(request, response);
         } catch (SQLException e) {
