@@ -5,7 +5,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDAO {
+public class ProductDAO extends Product{
+
+    public ProductDAO(int id, String name, double price, int stock) {
+        super(id, name, price, stock);
+    }
 
     private static Connection jdbcConnection;
 
@@ -27,7 +31,7 @@ public class ProductDAO {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                product = new Product(
+                product = new ProductDAO(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getDouble("price"),
@@ -44,7 +48,7 @@ public class ProductDAO {
         try (Statement stmt = jdbcConnection.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                Product product = new Product(
+                Product product = new ProductDAO(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getDouble("price"),
