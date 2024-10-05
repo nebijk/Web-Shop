@@ -6,16 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO {
-    private Connection jdbcConnection;
 
-    public UserDAO() {
+    private static Connection jdbcConnection;
+
+    static {
         DatabaseConfig config = new DatabaseConfig();
-        this.jdbcConnection = config.getConnection();
+        jdbcConnection = config.getConnection();  // Anslutning till databasen
+        if (jdbcConnection == null) {
+            System.out.println("Failed to establish a database connection in UserDAO.");
+        } else {
+            System.out.println("Database connection established in UserDAO.");
+        }
     }
 
-
-    // Metod för att kontrollera användaruppgifterna
-    public boolean validateUser(String username, String password) {
+    public static boolean validateUser(String username, String password) {
         String query = "SELECT * FROM users WHERE username = ? AND password = ?";
         try (PreparedStatement stmt = jdbcConnection.prepareStatement(query)) {
             stmt.setString(1, username);

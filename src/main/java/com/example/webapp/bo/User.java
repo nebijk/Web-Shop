@@ -1,10 +1,12 @@
 package com.example.webapp.bo;
 
+import com.example.webapp.db.UserDAO;
+
 public class User {
     private int id;
     private String username;
     private String password;
-    private String role;  // "customer", "admin", "warehouse_staff"
+    private String role;
     private Cart cart;  // Each user has a cart
 
     public User(int id, String username, String password, String role) {
@@ -13,6 +15,11 @@ public class User {
         this.password = password;
         this.role = role;
         this.cart = new Cart();  // Initialize the cart when the user is created
+    }
+
+    // Statiska metoder för att validera användare
+    public static boolean validateLogin(String username, String password) {
+        return UserDAO.validateUser(username, password);  // Anropar statisk metod från UserDAO
     }
 
     // Getters and setters for User attributes

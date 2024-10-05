@@ -1,19 +1,17 @@
 package com.example.webapp.db;
 
 import com.example.webapp.bo.Product;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ProductDAO {
 
-    private Connection jdbcConnection;
+    private static Connection jdbcConnection;
 
-    public ProductDAO() {
+    static {
         DatabaseConfig config = new DatabaseConfig();
-        this.jdbcConnection = config.getConnection();  // Använd hårdkodad anslutning från DatabaseConfig
+        jdbcConnection = config.getConnection();  // Anslutning till databasen
         if (jdbcConnection == null) {
             System.out.println("Failed to establish a database connection in ProductDAO.");
         } else {
@@ -21,12 +19,12 @@ public class ProductDAO {
         }
     }
 
-    public Product getProductById(int id) throws SQLException {
+    public static Product getProductById(int id) throws SQLException {
         Product product = null;
         String query = "SELECT * FROM products WHERE id = ?";
 
         try (PreparedStatement stmt = jdbcConnection.prepareStatement(query)) {
-            stmt.setInt(1, id);  // Sätt in produkt-ID:t i frågan
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 product = new Product(
@@ -39,11 +37,11 @@ public class ProductDAO {
         }
         return product;
     }
-    // Metod för att hämta alla produkter från databasen
-    public List<Product> getAllProducts() throws SQLException {
+
+    public static List<Product> getAllProducts() throws SQLException {
         List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM products";
-        try (Statement stmt = jdbcConnection.createStatement()) {  // Här används jdbcConnection
+        try (Statement stmt = jdbcConnection.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 Product product = new Product(
@@ -55,9 +53,6 @@ public class ProductDAO {
                 products.add(product);
             }
         }
-        System.out.println("Number of products fetched: " + products.size());
         return products;
     }
 }
-
-

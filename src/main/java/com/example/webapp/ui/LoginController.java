@@ -1,6 +1,6 @@
 package com.example.webapp.ui;
 
-import com.example.webapp.bo.UserService;
+import com.example.webapp.bo.UserHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,8 +14,6 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 
-    private UserService userService = new UserService();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Skicka användaren till inloggningssidan om GET-anrop görs
@@ -27,8 +25,8 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // Validera inloggningsuppgifter via service-lagret
-        boolean isValid = userService.validateLogin(username, password);  // boolean returvärde
+        // Validera inloggningsuppgifter via UserHandler
+        boolean isValid = UserHandler.validateUser(username, password);  // boolean returvärde
 
         if (isValid) {
             // Om inloggningen lyckas, skapa en session och lagra användarnamnet
