@@ -9,7 +9,7 @@ public class User {
     private String role;
     private Cart cart;  // Each user has a cart
 
-    public User(int id, String username, String password, String role) {
+    protected User(int id, String username, String password, String role) {
         this.id = id;
         this.username = username;
         this.password = password;

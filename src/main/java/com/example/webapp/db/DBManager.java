@@ -5,28 +5,44 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBManager {
+    // Singleton instance
+    private static DBManager dbManager = null;
+    private Connection connection = null;
 
-    private static Connection connection;
-
-    // Metod för att skapa och returnera en databasanslutning utan db.properties
-    public Connection getConnection() {
-        if (connection == null) {
-            try {
-                // Hårdkodad information för databasanslutning
-                String url = "jdbc:mysql://localhost/webshop";  // Ange din databas-URL
-                String username = "root";  // Ange ditt databas-användarnamn
-                String password = "Dekemhare145.";  // Ange ditt databas-lösenord
-
-                // Ladda JDBC-drivrutinen
-                Class.forName("com.mysql.cj.jdbc.Driver");
-
-                // Skapa anslutningen
-                connection = DriverManager.getConnection(url, username, password);
-                System.out.println("Connection established!");  // Bekräfta anslutning i konsolen
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
-            }
+    // Private constructor to prevent instantiation
+    DBManager() {
+        String user = "root";
+        String pwd = "Dekemhare145.";
+        String server = "jdbc:mysql://localhost/webshop";
+        System.out.println("hej");
+        try {
+            System.out.println("Connecting to database...");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(server, user, pwd);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        return connection;
+    }
+
+    public static synchronized DBManager getInstance() {
+        if (dbManager == null) {
+            dbManager = new DBManager();
+        }
+        return dbManager;
+    }
+
+    public static Connection getConnection() {
+        return getInstance().connection;
+    }
+
+
+    public void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
