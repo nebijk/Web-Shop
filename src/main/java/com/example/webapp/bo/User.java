@@ -1,4 +1,4 @@
-package com.example.webapp.model;
+package com.example.webapp.bo;
 
 public class User {
     private int id;

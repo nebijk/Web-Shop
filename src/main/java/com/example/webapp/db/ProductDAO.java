@@ -1,10 +1,10 @@
-package com.example.webapp.model;
+package com.example.webapp.db;
 
-import com.example.webapp.Config.DatabaseConfig;
+import com.example.webapp.bo.Product;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 
 public class ProductDAO {

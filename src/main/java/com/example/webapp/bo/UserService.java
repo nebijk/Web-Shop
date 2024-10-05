@@ -1,6 +1,6 @@
-package com.example.webapp.model;
+package com.example.webapp.bo;
 
-import com.example.webapp.model.UserDAO;
+import com.example.webapp.db.UserDAO;
 
 public class UserService {
     private UserDAO userDAO = new UserDAO();

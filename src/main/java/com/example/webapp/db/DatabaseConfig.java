@@ -1,10 +1,8 @@
-package com.example.webapp.Config;
+package com.example.webapp.db;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
 public class DatabaseConfig {
 
@@ -15,9 +13,9 @@ public class DatabaseConfig {
         if (connection == null) {
             try {
                 // Hårdkodad information för databasanslutning
-                String url = "jdbc:mysql://127.0.0.1:3306/webshop";  // Ange din databas-URL
+                String url = "jdbc:mysql://localhost/webshop";  // Ange din databas-URL
                 String username = "root";  // Ange ditt databas-användarnamn
-                String password = "Coola145!";  // Ange ditt databas-lösenord
+                String password = "Dekemhare145.";  // Ange ditt databas-lösenord
 
                 // Ladda JDBC-drivrutinen
                 Class.forName("com.mysql.cj.jdbc.Driver");

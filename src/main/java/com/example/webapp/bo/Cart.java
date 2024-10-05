@@ -1,4 +1,4 @@
-package com.example.webapp.model;
+package com.example.webapp.bo;
 
 import java.util.HashMap;
 import java.util.Map;

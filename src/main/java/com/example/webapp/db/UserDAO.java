@@ -1,6 +1,5 @@
-package com.example.webapp.model;
+package com.example.webapp.db;
 
-import com.example.webapp.Config.DatabaseConfig;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

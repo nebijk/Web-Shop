@@ -1,7 +1,7 @@
-package com.example.webapp.controller;
+package com.example.webapp.ui;
 
-import com.example.webapp.model.Product;
-import com.example.webapp.model.ProductDAO;
+import com.example.webapp.bo.Product;
+import com.example.webapp.db.ProductDAO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
