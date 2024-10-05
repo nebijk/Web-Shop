@@ -2,7 +2,7 @@ package com.example.webapp.ui;
 
 import com.example.webapp.bo.Cart;
 import com.example.webapp.bo.Product;
-import com.example.webapp.db.ProductDAO;
+import com.example.webapp.bo.ProductHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,22 +13,31 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(name = "CartController", value = "/cart")
 public class CartController extends HttpServlet {
-    private ProductDAO productDAO = new ProductDAO();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Get productId from the request
         int productId = Integer.parseInt(request.getParameter("productId"));
 
-        // Fetch the product from the database
-        Product product = null;
+        // Fetch all products using ProductHandler
+        List<Product> productList = null;
         try {
-            product = productDAO.getProductById(productId);
+            productList = ProductHandler.getProducts();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+
+        // Find the product by productId using a simple loop
+        Product product = null;
+        for (Product p : productList) {
+            if (p.getId() == productId) {
+                product = p;
+                break;
+            }
         }
 
         // Get or create a cart from the session
