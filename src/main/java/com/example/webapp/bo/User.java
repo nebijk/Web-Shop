@@ -19,7 +19,6 @@ public class User {
         this.cart = new Cart();
     }
 
-    // Statiska metoder för att validera användare
     public static boolean validateLogin(String username, String password) {
         return DbUser.validateUser(username, password);
     }
@@ -28,6 +27,7 @@ public class User {
         public static User getUserByName (String username) throws SQLException {
         return DbUser.getUserByUsername(username);
     }
+
 
     public  int getId() {
         return id;

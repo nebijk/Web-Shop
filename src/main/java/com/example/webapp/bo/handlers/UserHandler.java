@@ -13,7 +13,7 @@ public class UserHandler {
     }
     public static User validateUser(String username, String password) {
         try {
-            User user = DbUser.getUserByUsername(username);
+            User user = User.getUserByName(username);
             if (user != null && user.getPassword().equals(password)) {
                 return user;
             }
