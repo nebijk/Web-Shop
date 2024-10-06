@@ -1,39 +1,40 @@
-package com.example.webapp.controller;
+package com.example.webapp.ui;
 
-import com.example.webapp.model.UserService;
+import com.example.webapp.bo.User;
+import com.example.webapp.bo.UserHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 
-
-    private UserService userService = new UserService();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Skicka användaren till inloggningssidan om GET-anrop görs
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // Validera inloggningsuppgifter via service-lagret
-        if (userService.validateLogin(username, password)) {
-            // Om inloggningen lyckas, skicka vidare till en välkomstsida
-            response.sendRedirect("product.jsp");
-        } else {
-            // Om inloggningen misslyckas, skicka tillbaka till inloggningssidan med ett felmeddelande
-            response.sendRedirect("login.jsp?error=true");
-        }
+        // Validate login credentials via UserHandler
+        User user = UserHandler.validateUser(username, password);  // Return the User object
+
+        // If login is successful, create a session and store the userId
+        HttpSession session = request.getSession();
+        session.setAttribute("userId", user.getId());  // Save userId in session
+        session.setAttribute("username", username);  // Optionally save username
+
+        // Redirect to product list after successful login
+        response.sendRedirect("product-list");
     }
 }
-

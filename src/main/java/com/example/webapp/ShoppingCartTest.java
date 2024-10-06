@@ -1,8 +1,5 @@
 package com.example.webapp;
 
-import com.example.webapp.model.Product;
-import com.example.webapp.model.User;
-
 public class ShoppingCartTest {
     public static void main(String[] args) {
         // Create a new user

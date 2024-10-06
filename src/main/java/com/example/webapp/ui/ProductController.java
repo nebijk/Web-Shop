@@ -1,33 +1,36 @@
-package com.example.webapp.controller;
+package com.example.webapp.ui;
 
-
-import com.example.webapp.model.ProductDAO;
-import com.example.webapp.model.Product;
+import com.example.webapp.bo.Product;
+import com.example.webapp.bo.ProductHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(name = "ProductController", value = "/product-list")
+@WebServlet("/product-list")
 public class ProductController extends HttpServlet {
-    private ProductDAO productDAO = new ProductDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            // Hämta alla produkter från databasen
-            List<Product> productList = productDAO.getAllProducts();
-            // Skicka listan med produkter till JSP-sidan
-            request.setAttribute("products", productList);
-            // Skicka vidare till JSP-sidan (view)
-            request.getRequestDispatcher("productList.jsp").forward(request, response);
+        // Kontrollera om användaren är inloggad
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
 
+        try {
+            // Anropar ProductHandler för att få alla produkter
+            List<ProductInfo> productList = ProductHandler.getProducts();
+            request.setAttribute("products", productList);
+            request.getRequestDispatcher("product-list.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error fetching product list");

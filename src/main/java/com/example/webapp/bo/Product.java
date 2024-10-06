@@ -1,4 +1,8 @@
-package com.example.webapp.model;
+package com.example.webapp.bo;
+
+import com.example.webapp.db.ProductDAO;
+import java.sql.SQLException;
+import java.util.List;
 
 public class Product {
     private int id;
@@ -7,29 +11,22 @@ public class Product {
     private int stock;
 
     // Standardkonstruktor
-    public Product() {
-    }
+    public Product() {}
 
-    // Konstruktor med parametrar
-    public Product(int id, String name, double price, int stock) {
+    protected Product(int id, String name, double price, int stock) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.stock = stock;
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        Product product = (Product) o;
-
-        return id == product.id;  // Products are equal if their ids are equal
+    // Statiska metoder som anropar ProductDAO
+    public static Product getProductById(int id) throws SQLException {
+        return ProductDAO.getProductById(id);
     }
 
-    @Override
-    public int hashCode() {
-        return Integer.hashCode(id);  // Use the product's id for the hash code
+    public static List<Product> getAllProducts() throws SQLException {
+        return ProductDAO.getAllProducts();
     }
 
     // Getter och setter för id
@@ -66,16 +63,5 @@ public class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
-    }
-
-    // toString() metod för enkel utskrift av produktinformationen
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", quantity=" + stock +
-                '}';
     }
 }
