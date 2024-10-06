@@ -11,7 +11,7 @@ public class DbManager {
 
     DbManager() {
         String user = "root";
-        String pwd = "Dekemhare145.";
+        String pwd = "lösenord";
         String server = "jdbc:mysql://localhost/webshop";
         System.out.println("hej");
         try {
