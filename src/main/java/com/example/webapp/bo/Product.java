@@ -27,6 +27,10 @@ public class Product {
         return DbProduct.getAllProducts();
     }
 
+    public static void updateStock(int id, int stock) throws SQLException {
+        DbProduct.updateStock(id, stock);
+    }
+
     public int getId() {
         return id;
     }

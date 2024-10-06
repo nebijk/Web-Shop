@@ -24,9 +24,9 @@ public class OrderHandler {
             int quantity = entry.getValue();
 
             OrderItem orderItem = new OrderItem(0, orderId, product.getId(), quantity);
-            DbOrderItem.addOrderItem(orderItem);
+           OrderItem.addOrderItem(orderItem);
 
-            DbProduct.updateStock(product.getId(), product.getStock() - quantity);
+            Product.updateStock(product.getId(), product.getStock() - quantity);
         }
     }
 }

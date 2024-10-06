@@ -1,5 +1,9 @@
 package com.example.webapp.bo;
 
+import com.example.webapp.db.DbOrderItem;
+
+import java.sql.SQLException;
+
 public class OrderItem {
     private int orderItemId;
     private int orderId;
@@ -12,6 +16,9 @@ public class OrderItem {
         this.orderId = orderId;
         this.productId = productId;
         this.quantity = quantity;
+    }
+    public static void addOrderItem(OrderItem orderItem) throws SQLException {
+        DbOrderItem.addOrderItem(orderItem);
     }
 
     // Getters and setters
