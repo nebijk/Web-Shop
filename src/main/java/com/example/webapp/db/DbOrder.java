@@ -21,24 +21,6 @@ public class DbOrder extends Order {
         super(orderId, userId, totalAmount);
     }
 
-    public static List<Order> getOrdersByUserId(int userId) throws SQLException {
-        List<Order> orders = new ArrayList<>();
-        String query = "SELECT * FROM orders WHERE user_id = ?";
-        try (PreparedStatement stmt = jdbcConnection.prepareStatement(query)) {
-            stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Order order = new Order(
-                        rs.getInt("order_id"),
-                        rs.getInt("user_id"),
-                        rs.getDouble("total_amount")
-                );
-                orders.add(order);
-            }
-        }
-        return orders;
-    }
-
     // Method to add an order
     public static int addOrder(Order order) throws SQLException {
         String query = "INSERT INTO orders (user_id, total_amount) VALUES (?, ?)";
@@ -57,7 +39,6 @@ public class DbOrder extends Order {
         }
     }
 
-    // Method to get all orders
     public static List<Order> getAllOrders() throws SQLException {
         List<Order> orders = new ArrayList<>();
         String query = "SELECT * FROM orders";

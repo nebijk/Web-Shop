@@ -2,7 +2,7 @@ package com.example.webapp.ui;
 
 import com.example.webapp.bo.Product;
 
-public class ProductInfo extends Product {
+public class ProductInfo {
     private int id;
     private String name;
     private double price;

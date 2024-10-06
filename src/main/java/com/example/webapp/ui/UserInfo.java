@@ -1,21 +1,28 @@
-package com.example.webapp.bo;
+package com.example.webapp.ui;
 
+import com.example.webapp.bo.Cart;
 import com.example.webapp.db.DbUser;
 
 import java.sql.SQLException;
 
-public class User {
+public class UserInfo {
     private int id;
     private String username;
     private String password;
     private String role;
     private Cart cart;
 
-    public User(int id, String username, String password, String role) {
+    public UserInfo(int id, String username, String password, String role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.cart = new Cart();
+    }
+    public UserInfo(int id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
         this.cart = new Cart();
     }
 
@@ -23,7 +30,7 @@ public class User {
         return DbUser.validateUser(username, password);
     }
 
-        public static User getUserByName (String username) throws SQLException {
+    public static com.example.webapp.bo.User getUserByName (String username) throws SQLException {
         return DbUser.getUserByUsername(username);
     }
 

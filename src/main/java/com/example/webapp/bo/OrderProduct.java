@@ -1,33 +1,33 @@
 package com.example.webapp.bo;
 
-import com.example.webapp.db.DbOrderItem;
+import com.example.webapp.db.DbOrderProduct;
 
 import java.sql.SQLException;
 
-public class OrderItem {
-    private int orderItemId;
+public class OrderProduct {
+    private int orderProductId;
     private int orderId;
     private int productId;
     private int quantity;
 
     // Constructor
-    public OrderItem(int orderItemId, int orderId, int productId, int quantity) {
-        this.orderItemId = orderItemId;
+    public OrderProduct(int orderProductId, int orderId, int productId, int quantity) {
+        this.orderProductId = orderProductId;
         this.orderId = orderId;
         this.productId = productId;
         this.quantity = quantity;
     }
-    public static void addOrderItem(OrderItem orderItem) throws SQLException {
-        DbOrderItem.addOrderItem(orderItem);
+    public static void addOrderProduct(OrderProduct orderProduct) throws SQLException {
+        DbOrderProduct.addOrderProducts(orderProduct);
     }
 
     // Getters and setters
-    public int getOrderItemId() {
-        return orderItemId;
+    public int getOrderProductId() {
+        return orderProductId;
     }
 
-    public void setOrderItemId(int orderItemId) {
-        this.orderItemId = orderItemId;
+    public void setOrderProductId(int orderProductId) {
+        this.orderProductId = orderProductId;
     }
 
     public int getOrderId() {

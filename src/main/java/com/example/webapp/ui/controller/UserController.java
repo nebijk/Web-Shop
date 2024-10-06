@@ -1,8 +1,8 @@
 package com.example.webapp.ui.controller;
 
-import com.example.webapp.bo.User;
 import com.example.webapp.bo.handlers.UserHandler;
 
+import com.example.webapp.ui.UserInfo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,7 +25,7 @@ public class UserController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        User user = UserHandler.validateUser(username, password);
+        UserInfo user = UserHandler.validateUser(username, password);
 
         HttpSession session = request.getSession();
         session.setAttribute("userId", user.getId());

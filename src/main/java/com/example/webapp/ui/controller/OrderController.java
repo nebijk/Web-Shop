@@ -25,7 +25,6 @@ public class OrderController extends HttpServlet {
         }
 
         try {
-
             Integer userId = (Integer) session.getAttribute("userId");
             Cart cart = (Cart) session.getAttribute("cart");
 
@@ -35,9 +34,7 @@ public class OrderController extends HttpServlet {
             }
 
             OrderHandler.placeOrder(userId, cart);
-
             session.removeAttribute("cart");
-
             response.sendRedirect("product-list");
 
         } catch (SQLException e) {

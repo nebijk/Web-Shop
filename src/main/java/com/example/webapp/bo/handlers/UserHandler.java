@@ -2,24 +2,23 @@ package com.example.webapp.bo.handlers;
 
 import com.example.webapp.bo.User;
 import com.example.webapp.db.DbUser;
+import com.example.webapp.ui.UserInfo;
 
 import java.sql.SQLException;
 
 public class UserHandler {
 
-
-    public static User getUserByName(String username) throws SQLException {
-        return User.getUserByName(username);
-    }
-    public static User validateUser(String username, String password) {
+    public static UserInfo validateUser(String username, String password) {
         try {
             User user = User.getUserByName(username);
             if (user != null && user.getPassword().equals(password)) {
-                return user;
+                return new UserInfo(user.getId(), user.getUsername(), "", user.getRole());
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
+
 }
