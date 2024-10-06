@@ -1,5 +1,7 @@
 package com.example.webapp.db;
 
+import com.example.webapp.bo.User;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,4 +33,24 @@ public class UserDAO {
             return false;
         }
     }
+    public static User getUserByUsername(String username) throws SQLException {
+        String query = "SELECT * FROM users WHERE username = ?";
+        try (PreparedStatement stmt = jdbcConnection.prepareStatement(query)) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                // Create and return a User object with the retrieved data
+                return new User(
+                        rs.getInt("id"),               // Assuming 'id' is the user ID
+                        rs.getString("username"),      // User's username
+                        rs.getString("password"),      // User's password (should be handled carefully)
+                        rs.getString("role")           // User's role (if applicable)
+                );
+            } else {
+                return null;  // Return null if the user is not found
+            }
+        }
+    }
+
 }

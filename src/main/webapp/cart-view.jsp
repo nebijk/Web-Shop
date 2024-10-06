@@ -16,46 +16,30 @@
             height: 100vh;
             margin: 0;
         }
-
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
         table {
             width: 80%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-
         table, th, td {
             border: 1px solid #ccc;
         }
-
         th, td {
             padding: 12px;
             text-align: center;
         }
-
         th {
             background-color: #4CAF50;
             color: white;
         }
-
-        td {
-            background-color: white;
-        }
-
         .total-row {
             font-weight: bold;
             background-color: #f9f9f9;
         }
-
         .empty-cart {
             color: red;
             font-weight: bold;
         }
-
         a, input[type="submit"] {
             background-color: #4CAF50;
             color: white;
@@ -65,11 +49,9 @@
             border: none;
             cursor: pointer;
         }
-
         a:hover, input[type="submit"]:hover {
             background-color: #45a049;
         }
-
         .container {
             background-color: white;
             padding: 20px;
@@ -78,7 +60,6 @@
             width: 90%;
             max-width: 1000px;
         }
-
     </style>
 </head>
 <body>
@@ -114,6 +95,9 @@
             <td><%= cart.getTotalPrice() %></td>
         </tr>
     </table>
+    <form action="create-order" method="post">
+        <input type="submit" value="Place Order" />
+    </form>
     <%
     } else {
     %>
@@ -121,7 +105,6 @@
     <%
         }
     %>
-
     <a href="product-list">Continue Shopping</a>
 </div>
 </body>

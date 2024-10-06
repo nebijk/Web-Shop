@@ -59,4 +59,34 @@ public class ProductDAO extends Product{
         }
         return products;
     }
+    public static void updateStock(int productId, int newStock) throws SQLException {
+        Connection connection = null;
+        try {
+            connection = DBManager.getConnection();
+            connection.setAutoCommit(false);  // Disable auto-commit
+
+            String query = "UPDATE products SET stock = ? WHERE id = ?";
+            try (PreparedStatement stmt = connection.prepareStatement(query)) {
+                stmt.setInt(1, newStock);
+                stmt.setInt(2, productId);
+                stmt.executeUpdate();
+            }
+
+            connection.commit();  // Commit transaction
+            System.out.println("Stock updated successfully.");
+        } catch (SQLException e) {
+            if (connection != null) {
+                connection.rollback();  // Rollback transaction in case of error
+                System.out.println("Transaction rolled back.");
+            }
+            throw e;
+        } finally {
+            if (connection != null) {
+                connection.setAutoCommit(true);  // Re-enable auto-commit
+            }
+        }
+    }
+
+
+
 }

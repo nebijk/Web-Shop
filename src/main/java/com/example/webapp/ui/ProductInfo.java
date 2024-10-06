@@ -1,10 +1,11 @@
 package com.example.webapp.ui;
 
+import com.example.webapp.bo.Product;
 import com.example.webapp.db.ProductDAO;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProductInfo {
+public class ProductInfo extends Product {
     private int id;
     private String name;
     private double price;

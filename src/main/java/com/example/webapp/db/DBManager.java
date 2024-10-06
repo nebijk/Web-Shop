@@ -12,8 +12,8 @@ public class DBManager {
     // Private constructor to prevent instantiation
     DBManager() {
         String user = "root";
-        String pwd = "Dekemhare145.";
-        String server = "jdbc:mysql://localhost/webshop";
+        String pwd = "Coola145!";
+        String server = "jdbc:mysql://127.0.0.1/webshop";
         System.out.println("hej");
         try {
             System.out.println("Connecting to database...");

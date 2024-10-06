@@ -1,5 +1,6 @@
 package com.example.webapp.ui;
 
+import com.example.webapp.bo.User;
 import com.example.webapp.bo.UserHandler;
 
 import jakarta.servlet.ServletException;
@@ -25,19 +26,15 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // Validera inloggningsuppgifter via UserHandler
-        boolean isValid = UserHandler.validateUser(username, password);  // boolean returvärde
+        // Validate login credentials via UserHandler
+        User user = UserHandler.validateUser(username, password);  // Return the User object
 
-        if (isValid) {
-            // Om inloggningen lyckas, skapa en session och lagra användarnamnet
-            HttpSession session = request.getSession();
-            session.setAttribute("username", username);  // Spara användarnamn i sessionen
+        // If login is successful, create a session and store the userId
+        HttpSession session = request.getSession();
+        session.setAttribute("userId", user.getId());  // Save userId in session
+        session.setAttribute("username", username);  // Optionally save username
 
-            // Omdirigera till produktlistan efter inloggningen
-            response.sendRedirect("product-list");
-        } else {
-            // Om inloggningen misslyckas, skicka tillbaka till inloggningssidan med ett felmeddelande
-            response.sendRedirect("login.jsp?error=true");
-        }
+        // Redirect to product list after successful login
+        response.sendRedirect("product-list");
     }
 }

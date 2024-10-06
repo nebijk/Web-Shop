@@ -2,6 +2,8 @@ package com.example.webapp.bo;
 
 import com.example.webapp.db.UserDAO;
 
+import java.sql.SQLException;
+
 public class User {
     private int id;
     private String username;
@@ -9,7 +11,7 @@ public class User {
     private String role;
     private Cart cart;  // Each user has a cart
 
-    protected User(int id, String username, String password, String role) {
+    public User(int id, String username, String password, String role) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -22,8 +24,13 @@ public class User {
         return UserDAO.validateUser(username, password);  // Anropar statisk metod från UserDAO
     }
 
+
+        public static User getUserByName (String username) throws SQLException {
+        return UserDAO.getUserByUsername(username);
+    }
+
     // Getters and setters for User attributes
-    public int getId() {
+    public  int getId() {
         return id;
     }
 

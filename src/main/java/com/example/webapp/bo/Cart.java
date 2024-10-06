@@ -13,13 +13,12 @@ public class Cart {
     }
 
     // Method to add a product to the cart (increments quantity if already present)
-    public void addProduct(ProductInfo product) {
-        // Check if the product is already in the cart and update its quantity
+    public void addProduct(ProductInfo product, int quantity) {
         if (products.containsKey(product)) {
             int currentQuantity = products.get(product);
-            products.put(product, currentQuantity + 1);  // Increment the quantity
+            products.put(product, currentQuantity + quantity);
         } else {
-            products.put(product, 1);  // Add the product with a quantity of 1 if it's not already in the cart
+            products.put(product, quantity);
         }
     }
 

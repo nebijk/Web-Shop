@@ -50,7 +50,7 @@ public class CartController extends HttpServlet {
 
         // Add the product to the cart (increment quantity)
         if (product != null) {
-            cart.addProduct(product);
+            cart.addProduct(product,1);
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product");
         }
