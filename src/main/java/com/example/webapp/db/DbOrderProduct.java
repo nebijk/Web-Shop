@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class DbOrderProduct extends OrderProduct {
 
-    public DbOrderProduct(int orderProductId, int orderId, int productId, int quantity) {
+    protected DbOrderProduct(int orderProductId, int orderId, int productId, int quantity) {
         super(orderProductId, orderId, productId, quantity);
     }
 

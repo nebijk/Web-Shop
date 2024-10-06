@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DbOrder extends Order {
 
-    public DbOrder(int orderId, int userId, double totalAmount) {
+    protected DbOrder(int orderId, int userId, double totalAmount) {
         super(orderId, userId, totalAmount);
     }
 

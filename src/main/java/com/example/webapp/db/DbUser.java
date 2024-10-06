@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class DbUser extends User {
 
-    public DbUser(int id, String username, String password, String role) {
+    protected DbUser(int id, String username, String password, String role) {
         super(id, username, password, role);
     }
 

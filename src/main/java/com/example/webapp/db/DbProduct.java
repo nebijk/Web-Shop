@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DbProduct extends Product {
 
-    public DbProduct(int id, String name, double price, int stock) {
+    protected DbProduct(int id, String name, double price, int stock) {
         super(id, name, price, stock);
     }
 
