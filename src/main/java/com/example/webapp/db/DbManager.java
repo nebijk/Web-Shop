@@ -6,23 +6,18 @@ import java.sql.SQLException;
 
 public class DbManager {
 
-    private static DbManager dbManager = null;
-    private Connection connection = null;
+    private static DbManager dbManager = null;  // Singleton instance
 
-    DbManager() {
-        String user = "root";
-        String pwd = "Dekemhare145.";
-        String server = "jdbc:mysql://localhost/webshop";
-        System.out.println("hej");
+    // Private constructor to prevent external instantiation
+    private DbManager() {
         try {
-            System.out.println("Connecting to database...");
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(server, user, pwd);
-        } catch (SQLException | ClassNotFoundException e) {
+            Class.forName("com.mysql.cj.jdbc.Driver");  // Load MySQL driver
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
+    // Singleton instance getter
     public static synchronized DbManager getInstance() {
         if (dbManager == null) {
             dbManager = new DbManager();
@@ -30,12 +25,16 @@ public class DbManager {
         return dbManager;
     }
 
-    public static Connection getConnection() {
-        return getInstance().connection;
+    // Method to get a new connection for each operation
+    public Connection getConnection() throws SQLException {
+        String url = "jdbc:mysql://localhost/webshop";
+        String user = "root";
+        String password = "Dekemhare145.";  // You should use environment variables for security reasons
+        return DriverManager.getConnection(url, user, password);
     }
 
-
-    public void closeConnection() {
+    // Method to close a connection (optional for external use)
+    public void closeConnection(Connection connection) {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();

@@ -5,31 +5,24 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DbProduct extends Product{
+public class DbProduct extends Product {
 
     public DbProduct(int id, String name, double price, int stock) {
         super(id, name, price, stock);
     }
 
-    private static Connection jdbcConnection;
-
-    static {
-        DbManager config = new DbManager();
-        jdbcConnection = config.getConnection();  // Anslutning till databasen
-        if (jdbcConnection == null) {
-            System.out.println("Failed to establish a database connection in ProductDAO.");
-        } else {
-            System.out.println("Database connection established in ProductDAO.");
-        }
-    }
-
+    // Method to get a product by its ID
     public static Product getProductById(int id) throws SQLException {
         Product product = null;
         String query = "SELECT * FROM products WHERE id = ?";
 
-        try (PreparedStatement stmt = jdbcConnection.prepareStatement(query)) {
+        // Dynamically get connection for each operation
+        try (Connection connection = DbManager.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
+
             if (rs.next()) {
                 product = new DbProduct(
                         rs.getInt("id"),
@@ -39,14 +32,20 @@ public class DbProduct extends Product{
                 );
             }
         }
+
         return product;
     }
 
+    // Method to get all products
     public static List<Product> getAllProducts() throws SQLException {
         List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM products";
-        try (Statement stmt = jdbcConnection.createStatement()) {
-            ResultSet rs = stmt.executeQuery(query);
+
+        // Dynamically get connection for each operation
+        try (Connection connection = DbManager.getInstance().getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
             while (rs.next()) {
                 Product product = new DbProduct(
                         rs.getInt("id"),
@@ -57,36 +56,29 @@ public class DbProduct extends Product{
                 products.add(product);
             }
         }
+
         return products;
     }
+
+    // Method to update stock for a product
     public static void updateStock(int productId, int newStock) throws SQLException {
-        Connection connection = null;
-        try {
-            connection = DbManager.getConnection();
+        String query = "UPDATE products SET stock = ? WHERE id = ?";
+
+        // Dynamically get connection for each operation
+        try (Connection connection = DbManager.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+
             connection.setAutoCommit(false);  // Disable auto-commit
 
-            String query = "UPDATE products SET stock = ? WHERE id = ?";
-            try (PreparedStatement stmt = connection.prepareStatement(query)) {
-                stmt.setInt(1, newStock);
-                stmt.setInt(2, productId);
-                stmt.executeUpdate();
-            }
+            stmt.setInt(1, newStock);
+            stmt.setInt(2, productId);
+            stmt.executeUpdate();
 
-            connection.commit();  // Commit transaction
+            connection.commit();  // Commit the transaction
             System.out.println("Stock updated successfully.");
         } catch (SQLException e) {
-            if (connection != null) {
-                connection.rollback();  // Rollback transaction in case of error
-                System.out.println("Transaction rolled back.");
-            }
+            e.printStackTrace();
             throw e;
-        } finally {
-            if (connection != null) {
-                connection.setAutoCommit(true);  // Re-enable auto-commit
-            }
         }
     }
-
-
-
 }

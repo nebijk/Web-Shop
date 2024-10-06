@@ -25,6 +25,7 @@ public class OrderController extends HttpServlet {
         }
 
         try {
+
             Integer userId = (Integer) session.getAttribute("userId");
             Cart cart = (Cart) session.getAttribute("cart");
 
