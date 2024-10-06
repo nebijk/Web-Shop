@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/login")
-public class LoginController extends HttpServlet {
+public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
