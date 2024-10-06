@@ -17,7 +17,6 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Skicka användaren till inloggningssidan om GET-anrop görs
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
@@ -26,15 +25,12 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // Validate login credentials via UserHandler
-        User user = UserHandler.validateUser(username, password);  // Return the User object
+        User user = UserHandler.validateUser(username, password);
 
-        // If login is successful, create a session and store the userId
         HttpSession session = request.getSession();
-        session.setAttribute("userId", user.getId());  // Save userId in session
-        session.setAttribute("username", username);  // Optionally save username
+        session.setAttribute("userId", user.getId());
+        session.setAttribute("username", username);
 
-        // Redirect to product list after successful login
         response.sendRedirect("product-list");
     }
 }

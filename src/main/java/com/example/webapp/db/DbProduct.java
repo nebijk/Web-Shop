@@ -5,16 +5,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDAO extends Product{
+public class DbProduct extends Product{
 
-    public ProductDAO(int id, String name, double price, int stock) {
+    public DbProduct(int id, String name, double price, int stock) {
         super(id, name, price, stock);
     }
 
     private static Connection jdbcConnection;
 
     static {
-        DBManager config = new DBManager();
+        DbManager config = new DbManager();
         jdbcConnection = config.getConnection();  // Anslutning till databasen
         if (jdbcConnection == null) {
             System.out.println("Failed to establish a database connection in ProductDAO.");
@@ -31,7 +31,7 @@ public class ProductDAO extends Product{
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                product = new ProductDAO(
+                product = new DbProduct(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getDouble("price"),
@@ -48,7 +48,7 @@ public class ProductDAO extends Product{
         try (Statement stmt = jdbcConnection.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                Product product = new ProductDAO(
+                Product product = new DbProduct(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getDouble("price"),
@@ -62,7 +62,7 @@ public class ProductDAO extends Product{
     public static void updateStock(int productId, int newStock) throws SQLException {
         Connection connection = null;
         try {
-            connection = DBManager.getConnection();
+            connection = DbManager.getConnection();
             connection.setAutoCommit(false);  // Disable auto-commit
 
             String query = "UPDATE products SET stock = ? WHERE id = ?";

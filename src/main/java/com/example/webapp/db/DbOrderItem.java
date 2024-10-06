@@ -6,11 +6,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderItemDAO {
+public class DbOrderItem {
     private static Connection jdbcConnection;
 
     static {
-        DBManager config = new DBManager();
+        DbManager config = new DbManager();
         jdbcConnection = config.getConnection();
         if (jdbcConnection == null) {
             System.out.println("Failed to establish a database connection in OrderItemDAO.");

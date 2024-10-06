@@ -1,6 +1,6 @@
 package com.example.webapp.bo;
 
-import com.example.webapp.db.UserDAO;
+import com.example.webapp.db.DbUser;
 
 import java.sql.SQLException;
 
@@ -9,27 +9,26 @@ public class User {
     private String username;
     private String password;
     private String role;
-    private Cart cart;  // Each user has a cart
+    private Cart cart;
 
     public User(int id, String username, String password, String role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
-        this.cart = new Cart();  // Initialize the cart when the user is created
+        this.cart = new Cart();
     }
 
     // Statiska metoder för att validera användare
     public static boolean validateLogin(String username, String password) {
-        return UserDAO.validateUser(username, password);  // Anropar statisk metod från UserDAO
+        return DbUser.validateUser(username, password);
     }
 
 
         public static User getUserByName (String username) throws SQLException {
-        return UserDAO.getUserByUsername(username);
+        return DbUser.getUserByUsername(username);
     }
 
-    // Getters and setters for User attributes
     public  int getId() {
         return id;
     }
@@ -62,7 +61,6 @@ public class User {
         this.role = role;
     }
 
-    // Getter and setter for Cart
     public Cart getCart() {
         return cart;
     }

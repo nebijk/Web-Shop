@@ -19,7 +19,7 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Kontrollera om användaren är inloggad
+
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             response.sendRedirect("login.jsp");
@@ -27,7 +27,6 @@ public class ProductController extends HttpServlet {
         }
 
         try {
-            // Anropar ProductHandler för att få alla produkter
             List<ProductInfo> productList = ProductHandler.getProducts();
             request.setAttribute("products", productList);
             request.getRequestDispatcher("product-list.jsp").forward(request, response);

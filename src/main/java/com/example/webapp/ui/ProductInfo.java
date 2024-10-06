@@ -1,9 +1,6 @@
 package com.example.webapp.ui;
 
 import com.example.webapp.bo.Product;
-import com.example.webapp.db.ProductDAO;
-import java.sql.SQLException;
-import java.util.List;
 
 public class ProductInfo extends Product {
     private int id;
@@ -11,7 +8,6 @@ public class ProductInfo extends Product {
     private double price;
     private int stock;
 
-    // Standardkonstruktor
     public ProductInfo() {}
 
     public ProductInfo(int id, String name, double price, int stock) {
@@ -21,7 +17,6 @@ public class ProductInfo extends Product {
         this.stock = stock;
     }
 
-    // Getter och setter för id
     public int getId() {
         return id;
     }
@@ -30,7 +25,6 @@ public class ProductInfo extends Product {
         this.id = id;
     }
 
-    // Getter och setter för name
     public String getName() {
         return name;
     }
@@ -39,7 +33,6 @@ public class ProductInfo extends Product {
         this.name = name;
     }
 
-    // Getter och setter för price
     public double getPrice() {
         return price;
     }
@@ -48,7 +41,6 @@ public class ProductInfo extends Product {
         this.price = price;
     }
 
-    // Getter och setter för quantity
     public int getStock() {
         return stock;
     }

@@ -4,16 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBManager {
-    // Singleton instance
-    private static DBManager dbManager = null;
+public class DbManager {
+
+    private static DbManager dbManager = null;
     private Connection connection = null;
 
-    // Private constructor to prevent instantiation
-    DBManager() {
+    DbManager() {
         String user = "root";
-        String pwd = "Coola145!";
-        String server = "jdbc:mysql://127.0.0.1/webshop";
+        String pwd = "Dekemhare145.";
+        String server = "jdbc:mysql://localhost/webshop";
         System.out.println("hej");
         try {
             System.out.println("Connecting to database...");
@@ -24,9 +23,9 @@ public class DBManager {
         }
     }
 
-    public static synchronized DBManager getInstance() {
+    public static synchronized DbManager getInstance() {
         if (dbManager == null) {
-            dbManager = new DBManager();
+            dbManager = new DbManager();
         }
         return dbManager;
     }

@@ -1,6 +1,6 @@
 package com.example.webapp.bo;
 
-import com.example.webapp.db.ProductDAO;
+import com.example.webapp.db.DbProduct;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -10,7 +10,6 @@ public class Product {
     private double price;
     private int stock;
 
-    // Standardkonstruktor
     public Product() {}
 
     protected Product(int id, String name, double price, int stock) {
@@ -20,16 +19,14 @@ public class Product {
         this.stock = stock;
     }
 
-    // Statiska metoder som anropar ProductDAO
     public static Product getProductById(int id) throws SQLException {
-        return ProductDAO.getProductById(id);
+        return DbProduct.getProductById(id);
     }
 
     public static List<Product> getAllProducts() throws SQLException {
-        return ProductDAO.getAllProducts();
+        return DbProduct.getAllProducts();
     }
 
-    // Getter och setter för id
     public int getId() {
         return id;
     }
@@ -38,7 +35,6 @@ public class Product {
         this.id = id;
     }
 
-    // Getter och setter för name
     public String getName() {
         return name;
     }
@@ -47,7 +43,6 @@ public class Product {
         this.name = name;
     }
 
-    // Getter och setter för price
     public double getPrice() {
         return price;
     }
@@ -56,7 +51,6 @@ public class Product {
         this.price = price;
     }
 
-    // Getter och setter för quantity
     public int getStock() {
         return stock;
     }

@@ -1,6 +1,6 @@
 package com.example.webapp.bo;
 
-import com.example.webapp.db.UserDAO;
+import com.example.webapp.db.DbUser;
 
 import java.sql.SQLException;
 
@@ -8,17 +8,17 @@ public class UserHandler {
 
 
     public static User getUserByName(String username) throws SQLException {
-        return User.getUserByName(username);  // Call DAO to fetch user from database
+        return User.getUserByName(username);
     }
     public static User validateUser(String username, String password) {
         try {
-            User user = UserDAO.getUserByUsername(username);
+            User user = DbUser.getUserByUsername(username);
             if (user != null && user.getPassword().equals(password)) {
-                return user;  // Return the User object if login is successful
+                return user;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;  // Return null if login fails
+        return null;
     }
 }

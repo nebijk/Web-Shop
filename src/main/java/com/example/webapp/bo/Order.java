@@ -14,7 +14,6 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
-    // Getters and setters
     public int getOrderId() {
         return orderId;
     }

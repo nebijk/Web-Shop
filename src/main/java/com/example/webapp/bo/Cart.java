@@ -6,13 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cart {
-    private Map<ProductInfo, Integer> products;  // Map to hold Product objects and their quantities
+    private Map<ProductInfo, Integer> products;
 
     public Cart() {
-        this.products = new HashMap<>();  // Initialize the map
+        this.products = new HashMap<>();
     }
 
-    // Method to add a product to the cart (increments quantity if already present)
     public void addProduct(ProductInfo product, int quantity) {
         if (products.containsKey(product)) {
             int currentQuantity = products.get(product);
@@ -22,26 +21,22 @@ public class Cart {
         }
     }
 
-    // Method to remove a product from the cart
     public void removeProduct(Product product) {
         products.remove(product);
     }
 
-    // Method to get the total price of products in the cart
     public double getTotalPrice() {
         double total = 0;
         for (Map.Entry<ProductInfo, Integer> entry : products.entrySet()) {
-            total += entry.getKey().getPrice() * entry.getValue();  // Price * quantity
+            total += entry.getKey().getPrice() * entry.getValue();
         }
         return total;
     }
 
-    // Method to get the map of products and their quantities in the cart
     public Map<ProductInfo, Integer> getProducts() {
-        return products;  // Return the map of products and quantities
+        return products;
     }
 
-    // Method to clear the cart
     public void clear() {
         products.clear();
     }

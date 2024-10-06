@@ -7,13 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDAO {
+public class DbUser {
 
     private static Connection jdbcConnection;
 
     static {
-        DBManager config = new DBManager();
-        jdbcConnection = config.getConnection();  // Anslutning till databasen
+        DbManager config = new DbManager();
+        jdbcConnection = config.getConnection();
         if (jdbcConnection == null) {
             System.out.println("Failed to establish a database connection in UserDAO.");
         } else {
@@ -27,7 +27,7 @@ public class UserDAO {
             stmt.setString(1, username);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
-            return rs.next();  // Om en rad returneras betyder det att användaren finns och uppgifterna stämmer
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -40,15 +40,14 @@ public class UserDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // Create and return a User object with the retrieved data
                 return new User(
-                        rs.getInt("id"),               // Assuming 'id' is the user ID
-                        rs.getString("username"),      // User's username
-                        rs.getString("password"),      // User's password (should be handled carefully)
-                        rs.getString("role")           // User's role (if applicable)
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role")
                 );
             } else {
-                return null;  // Return null if the user is not found
+                return null;
             }
         }
     }
