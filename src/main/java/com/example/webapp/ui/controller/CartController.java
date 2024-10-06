@@ -1,9 +1,9 @@
-package com.example.webapp.ui;
+package com.example.webapp.ui.controller;
 
 import com.example.webapp.bo.Cart;
-import com.example.webapp.bo.Product;
-import com.example.webapp.bo.ProductHandler;
+import com.example.webapp.bo.handlers.ProductHandler;
 
+import com.example.webapp.ui.ProductInfo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

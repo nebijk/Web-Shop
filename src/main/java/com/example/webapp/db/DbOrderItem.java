@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DbOrderItem {
+public class DbOrderItem extends OrderItem {
     private static Connection jdbcConnection;
 
     static {
@@ -15,6 +15,10 @@ public class DbOrderItem {
         if (jdbcConnection == null) {
             System.out.println("Failed to establish a database connection in OrderItemDAO.");
         }
+    }
+
+    public DbOrderItem(int orderItemId, int orderId, int productId, int quantity) {
+        super(orderItemId, orderId, productId, quantity);
     }
 
     // Method to add an order item

@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DbOrder {
+public class DbOrder extends Order {
     private static Connection jdbcConnection;
 
     static {
@@ -16,6 +16,11 @@ public class DbOrder {
             System.out.println("Failed to establish a database connection in OrderDAO.");
         }
     }
+
+    public DbOrder(int orderId, int userId, double totalAmount) {
+        super(orderId, userId, totalAmount);
+    }
+
     public static List<Order> getOrdersByUserId(int userId) throws SQLException {
         List<Order> orders = new ArrayList<>();
         String query = "SELECT * FROM orders WHERE user_id = ?";

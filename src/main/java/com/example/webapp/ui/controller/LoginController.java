@@ -1,7 +1,7 @@
-package com.example.webapp.ui;
+package com.example.webapp.ui.controller;
 
 import com.example.webapp.bo.User;
-import com.example.webapp.bo.UserHandler;
+import com.example.webapp.bo.handlers.UserHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

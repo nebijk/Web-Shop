@@ -1,5 +1,6 @@
-package com.example.webapp.bo;
+package com.example.webapp.bo.handlers;
 
+import com.example.webapp.bo.Product;
 import com.example.webapp.ui.ProductInfo;
 
 import java.sql.SQLException;

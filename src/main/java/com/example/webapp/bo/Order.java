@@ -1,5 +1,8 @@
 package com.example.webapp.bo;
 
+import com.example.webapp.db.DbOrder;
+
+import java.sql.SQLException;
 import java.util.List;
 
 public class Order {
@@ -12,6 +15,9 @@ public class Order {
         this.orderId = orderId;
         this.userId = userId;
         this.totalAmount = totalAmount;
+    }
+    public static int addOrder(Order order) throws SQLException {
+        return DbOrder.addOrder(order);
     }
 
     public int getOrderId() {

@@ -1,6 +1,7 @@
-package com.example.webapp.ui;
+package com.example.webapp.ui.controller;
 
 import com.example.webapp.bo.*;
+import com.example.webapp.bo.handlers.OrderHandler;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

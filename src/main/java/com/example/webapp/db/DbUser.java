@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DbUser {
+public class DbUser extends User {
 
     private static Connection jdbcConnection;
 
@@ -19,6 +19,10 @@ public class DbUser {
         } else {
             System.out.println("Database connection established in UserDAO.");
         }
+    }
+
+    public DbUser(int id, String username, String password, String role) {
+        super(id, username, password, role);
     }
 
     public static boolean validateUser(String username, String password) {

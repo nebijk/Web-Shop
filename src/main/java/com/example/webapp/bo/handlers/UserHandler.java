@@ -1,5 +1,6 @@
-package com.example.webapp.bo;
+package com.example.webapp.bo.handlers;
 
+import com.example.webapp.bo.User;
 import com.example.webapp.db.DbUser;
 
 import java.sql.SQLException;

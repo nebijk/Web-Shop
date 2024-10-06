@@ -1,5 +1,9 @@
-package com.example.webapp.bo;
+package com.example.webapp.bo.handlers;
 
+import com.example.webapp.bo.Cart;
+import com.example.webapp.bo.Order;
+import com.example.webapp.bo.OrderItem;
+import com.example.webapp.bo.Product;
 import com.example.webapp.db.DbOrder;
 import com.example.webapp.db.DbOrderItem;
 import com.example.webapp.db.DbProduct;
@@ -10,22 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 public class OrderHandler {
-
-    // Method to create a new order
-    public static int createOrder(Order order) throws SQLException {
-        return DbOrder.addOrder(order);
-    }
-
-    // Method to get all orders for a specific user
-    public static List<Order> getOrdersByUserId(int userId) throws SQLException {
-        return DbOrder.getOrdersByUserId(userId);
-    }
-
-
     public static void placeOrder(int userId, Cart cart) throws SQLException {
         Order order = new Order(0, userId, cart.getTotalPrice());
 
-        int orderId = DbOrder.addOrder(order);
+        int orderId = Order.addOrder(order);
 
         for (Map.Entry<ProductInfo, Integer> entry : cart.getProducts().entrySet()) {
             Product product = entry.getKey();
