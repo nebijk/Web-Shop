@@ -29,7 +29,7 @@ public class DbManager {
     public Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost/webshop";
         String user = "root";
-        String password = "Dekemhare145.";  // You should use environment variables for security reasons
+        String password = "password123";  // You should use environment variables for security reasons
         return DriverManager.getConnection(url, user, password);
     }
 
